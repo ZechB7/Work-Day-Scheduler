@@ -10,7 +10,18 @@ $(document).ready(function () {
     //  attribute of each time-block be used to conditionally add or remove the
     //  past, present, and future classes? How can Day.js be used to get the
     //  current hour in 24-hour time?
-
+    $(".time-block").each(function () {
+      const currentHour = dayjs().hour();
+      const blockNum = +$(this).attr("id").slice(4);
+  
+      if (currentHour === blockNum) {
+        $(this).attr("class", "row time-block present");
+      } else if (currentHour < blockNum) {
+        $(this).attr("class", "row time-block future");
+      } else {
+        $(this).attr("class", "row time-block past");
+      }
+    });
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. HINT: What does `this` reference in the click listener
